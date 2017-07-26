@@ -1,2 +1,2 @@
 # PhotoLibrary
-Using Flicker API
+Android App used Flicker API
