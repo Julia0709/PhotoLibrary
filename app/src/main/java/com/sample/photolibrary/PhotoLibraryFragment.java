@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Julia on 2017/07/26.
@@ -54,6 +56,45 @@ public class PhotoLibraryFragment extends Fragment {
             }
 
             return null;
+        }
+    }
+
+    private class PhotoHolder extends RecyclerView.ViewHolder {
+        private TextView mTitleTextView;
+
+        public PhotoHolder(View itemView) {
+            super(itemView);
+            mTitleTextView = (TextView) itemView;
+        }
+
+        public void bindPhotoItem(PhotoItem item) {
+            mTitleTextView.setText(item.toString());
+        }
+    }
+
+    private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
+        private List<PhotoItem> mPhotoItems;
+
+        public PhotoAdapter(List<PhotoItem> photoItems) {
+            mPhotoItems = photoItems;
+        }
+
+        @Override
+        public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            TextView textView = new TextView(getActivity());
+
+            return new PhotoHolder(textView);
+        }
+
+        @Override
+        public void onBindViewHolder(PhotoHolder holder, int position) {
+            PhotoItem item = mPhotoItems.get(position);
+            holder.bindPhotoItem(item);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mPhotoItems.size();
         }
     }
 
